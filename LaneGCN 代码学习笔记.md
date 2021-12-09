@@ -60,7 +60,7 @@ pre:v->u,v是u的后继，对当前lane按照前一个node后一个node排好uv�
 
 合并之后，10维
 
-<img src="/home/lulijing/图片/2021-11-15 16-47-59 的屏幕截图.png" style="zoom:200%;" />
+![image](https://user-images.githubusercontent.com/95835767/145328812-4f92b5d3-c0a5-474e-983f-5a2bfd355e62.png)
 
 其中，idcs对应每一个batch的node个数的range
 
@@ -74,15 +74,14 @@ pre，suc，left，right也是合并，但是后边一个所有node的序号都�
 
 ## model
 
-![](/home/lulijing/图片/2021-09-16 16-47-14 的屏幕截图.png)
+![image](https://user-images.githubusercontent.com/95835767/145328821-69b0f7cf-aa5a-4257-a05e-4cf8b88b5059.png)
 
 ### self.actor_net
 
 3组1d卷积，每一组都由两个残差块组成；然后使用一个特征金字塔融合多尺度特征，并应用另一个残差块获得输出张量。
+![image](https://user-images.githubusercontent.com/95835767/145328834-f5aa31ad-a444-430f-8e23-0bb58c60016b.png)
+![image](https://user-images.githubusercontent.com/95835767/145328862-593cbb77-28d5-46d4-8969-7ffdcc760b25.png)
 
-<img src="/home/lulijing/图片/2021-09-13 15-22-53 的屏幕截图.png" style="zoom:80%;" />
-
-​                                                          <img src="/home/lulijing/图片/2021-09-13 15-26-58 的屏幕截图.png" style="zoom:80%;" />					
 
 ### self.map_net
 
@@ -99,13 +98,11 @@ pre list6 32个scence的，某阶pre/suc u 拼接 v也拼接，拼接时第1个s
 left
 
 right类似于pre suc只不过没有阶数，只有一组uv
+![image](https://user-images.githubusercontent.com/95835767/145328886-244364c4-5b76-4a20-b880-7483eec4be69.png)
 
-![](/home/lulijing/图片/2021-09-15 10-15-10 的屏幕截图.png)
+![image](https://user-images.githubusercontent.com/95835767/145328898-4b13b1ee-7bc2-4a96-999f-cd96c87fffad.png)
 
-![](/home/lulijing/图片/2021-09-15 10-17-32 的屏幕截图.png)
-
-![](/home/lulijing/图片/2021-09-15 10-21-50 的屏幕截图.png)
-
+![image](https://user-images.githubusercontent.com/95835767/145328900-9a2d955f-5c73-4a9d-9bf6-695c808dacd0.png)
 return：
 
 feat -Y
@@ -120,9 +117,9 @@ feat -Y
 
 a2m, m2a, a2a网络结构一致，采用空间注意力机制构成残差块。
 
-![](/home/lulijing/图片/2021-09-13 15-39-03 的屏幕截图.png)
+![image](https://user-images.githubusercontent.com/95835767/145328922-69894c76-012c-4b75-bb03-30e82ffad82a.png)
 
-![](/home/lulijing/图片/2021-09-13 15-39-35 的屏幕截图.png)
+![image](https://user-images.githubusercontent.com/95835767/145328912-79f57ad4-6313-4f66-a612-821dfc0ea470.png)
 
 ## self.pred_net
 
@@ -160,11 +157,11 @@ cls：
 
 $\hat{k}$是6条预测线中最终位移误差最小的预测线，计算下面的结果，得到一个cls loss值，它是使用一个batch 中所有符合条件的actor算出来的。
 
-![](/home/lulijing/图片/2021-10-13 09-05-02 的屏幕截图.png)
+![image](https://user-images.githubusercontent.com/95835767/145328947-4f269f23-5912-468d-a06d-1cfefda05b07.png)
 
 K = 6 ，M= actor_num, $c_{m,k}$为对应actor和预测轨迹线的置信度分数，
 
-![](/home/lulijing/图片/2021-10-13 09-41-00 的屏幕截图.png)
+![image](https://user-images.githubusercontent.com/95835767/145328954-08c0e3bc-8b7f-42bf-86c6-bbcc8b25bd39.png)
 
 p为对应预测线的30个时刻的位置。
 
